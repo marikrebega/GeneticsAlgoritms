@@ -1,7 +1,7 @@
-from .selection import Selection
+from .population import Population
 
 
-class Blanket(Selection):
+class Blanket(Population):
     def __init__(self):
         super().__init__()
         self.generations = self.make_gen_blanket()

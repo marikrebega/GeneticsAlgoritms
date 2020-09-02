@@ -1,8 +1,8 @@
 import random
-from .selection import Selection
+from .population import Population
 
 
-class Shotgun(Selection):
+class Shotgun(Population):
 
     def __init__(self):
         super().__init__()

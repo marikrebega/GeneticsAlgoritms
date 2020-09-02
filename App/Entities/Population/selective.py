@@ -1,8 +1,8 @@
 import random
-from .selection import Selection
+from .population import Population
 
 
-class Selective(Selection):
+class Selective(Population):
     def __init__(self):
         super().__init__()
         self.generations = self.make_gen_selective()

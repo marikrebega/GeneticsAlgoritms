@@ -1,6 +1,6 @@
-from App.Entities.Selection.blanket import Blanket
-from App.Entities.Selection.selective import Selective
-from App.Entities.Selection.shotgun import Shotgun
+from App.Entities.Population.blanket import Blanket
+from App.Entities.Population.selective import Selective
+from App.Entities.Population.shotgun import Shotgun
 
 
 def test():
