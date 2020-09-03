@@ -11,10 +11,11 @@ class ExtremumValues:
                     ext_value = value
         return ext_value
 
-    def my_func(self, person):
-        a = 14
-        b = 2
-        c = -26
-        d = 1
+    @staticmethod
+    def my_func(person):
+        a = 12
+        b = -8
+        c = -40
+        d = 3
         value = a + (b * person) + (c * person ^ 2) + (d * person ^ 3)
         return value

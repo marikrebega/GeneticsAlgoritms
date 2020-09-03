@@ -11,29 +11,31 @@ from .Entities.Selection.tournament import Tournament
 
 class Menu:
     POPULATION = {
-        0 : "Blanket",
-        1 : "Selective",
-        2 : "Shotgun"
+        0: "Blanket",
+        1: "Selective",
+        2: "Shotgun"
     }
     SELECTION = {
-        0 : "Tournament",
-        1 : "Roulette"
+        0: "Tournament",
+        1: "Roulette"
     }
     CROSSING = {
-        0 : "OnePointCross",
-        1 : "TwoPointCross",
-        2 : "MaskCross"
+        0: "OnePointCross",
+        1: "TwoPointCross",
+        2: "MaskCross"
     }
+
     def __init__(self):
         self.extremum = 0
         self.population = 0
         self.selection = 0
         self.crossing = 0
 
-    def __return_input(self, input):
-        if input.isdigit():
-            input = int(input)
-        return input
+    @staticmethod
+    def __return_input(input_number):
+        if input_number.isdigit():
+            input_number = int(input_number)
+        return input_number
 
     def __choose_extremum(self):
         while True:
@@ -113,7 +115,8 @@ class Menu:
         else:
             print("The MINIMUM value of function = ", str(result), "\n")
 
-    def __choose_range(self):
+    @staticmethod
+    def __choose_range():
         while True:
             print("Enter the number of iterations: ")
             inp = input()
@@ -142,7 +145,8 @@ class Menu:
         self.__print_value_of_function(result)
 
         for i in range(self.__choose_range()):
-            new_generation = eval(self.CROSSING[self.crossing])(eval(self.SELECTION[self.selection])(self.extremum, generation).selection).new_generation
+            new_generation = eval(self.CROSSING[self.crossing])(
+                eval(self.SELECTION[self.selection])(self.extremum, generation).selection).new_generation
             print(new_generation)
 
             generation = new_generation
