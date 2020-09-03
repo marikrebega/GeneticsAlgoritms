@@ -5,11 +5,11 @@ from .population import Population
 class Selective(Population):
     def __init__(self):
         super().__init__()
-        self.generations = self.make_gen_selective()
+        self.generation = self.make_gen_selective()
 
     def make_gen_selective(self):
-        generations = []
+        generation = []
         length = 8
         for i in range(length):
-            generations.append(random.randrange(self.get_min(), self.get_max()))
-        return generations
+            generation.append(random.randrange(self.minimum, self.maximum))
+        return generation

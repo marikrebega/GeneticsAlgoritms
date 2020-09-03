@@ -16,11 +16,11 @@ class Roulette(Selection):
         return "key doesn't exist"
 
     def __selection(self, target, gen):
-        ext_value = self.ext_value.value(gen, target)
+        ext_value = self.extremum_value.value(gen, target)
         fitness_result = {}
         result = []
         for i in range(len(gen)):
-            fitness_result[i] = self.ext_value.my_func(gen[i]) / ext_value
+            fitness_result[i] = self.extremum_value.my_func(gen[i]) / ext_value
         fitness_result_sorted = sorted(fitness_result.values(), reverse=True)
         length = int(len(gen) / 2)
         for j in range(length):
