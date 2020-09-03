@@ -10,7 +10,7 @@ class Shotgun(Population):
 
     def make_gen_shotgun(self):
         generation = []
-        length = int(len(range(self.minimum, self.maximum, 1))/2)
+        length = int(len(range(self.minimum, self.maximum, 1))/2)+1
         for i in range(length):
             generation.append(random.randrange(self.minimum, self.maximum))
         return generation

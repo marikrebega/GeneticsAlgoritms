@@ -10,24 +10,43 @@ from .Entities.Selection.tournament import Tournament
 
 
 class Menu:
+    POPULATION = {
+        0 : "Blanket",
+        1 : "Selective",
+        2 : "Shotgun"
+    }
+    SELECTION = {
+        0 : "Tournament",
+        1 : "Roulette"
+    }
+    CROSSING = {
+        0 : "OnePointCross",
+        1 : "TwoPointCross",
+        2 : "MaskCross"
+    }
     def __init__(self):
         self.extremum = 0
         self.population = 0
         self.selection = 0
         self.crossing = 0
 
+    def __return_input(self, input):
+        if input.isdigit():
+            input = int(input)
+        return input
+
     def __choose_extremum(self):
         while True:
             print("Select one of the values: ")
-            print("Input:\n\t 0 - You search MINIMUM value\n\t 1 - You search MAXIMUM value")
-            inp = int(input())
+            print("Enter:\n\t 0 - You search MINIMUM value\n\t 1 - You search MAXIMUM value")
+            inp = self.__return_input(input())
             if inp == 0:
-                self.extremum = 0
-                print("You search min value\n")
+                self.extremum = inp
+                print("You search MINIMUM value\n")
                 break
             elif inp == 1:
-                self.extremum = 0
-                print("You search max value\n")
+                self.extremum = inp
+                print("You search MAXIMUM value\n")
                 break
             else:
                 print("Wrong argument\n")
@@ -35,8 +54,8 @@ class Menu:
     def __choose_population(self):
         while True:
             print("Select one of the values: ")
-            print("Input:\n\t 0 - For BLANKET\n\t 1 - For SELECTIVE\n\t 2 - For SHOTGUN")
-            inp = int(input())
+            print("Enter:\n\t 0 - For BLANKET\n\t 1 - For SELECTIVE\n\t 2 - For SHOTGUN")
+            inp = self.__return_input(input())
             if inp == 0:
                 self.population = inp
                 print("You select BLANKET population\n")
@@ -55,8 +74,8 @@ class Menu:
     def __choose_selection(self):
         while True:
             print("Select one of the values: ")
-            print("Input:\n\t 0 - For TOURNAMENT\n\t 1 - For ROULETTE")
-            inp = int(input())
+            print("Enter:\n\t 0 - For TOURNAMENT\n\t 1 - For ROULETTE")
+            inp = self.__return_input(input())
             if inp == 0:
                 self.selection = inp
                 print("You select TOURNAMENT selection\n")
@@ -71,8 +90,8 @@ class Menu:
     def __choose_crossing(self):
         while True:
             print("Select one of the values: ")
-            print("Input:\n\t 0 - For ONE_POINT_CROSS\n\t 1 - For TWO_POINT_CROSS\n\t 2 - For MASK_CROSS")
-            inp = int(input())
+            print("Enter:\n\t 0 - For ONE_POINT_CROSS\n\t 1 - For TWO_POINT_CROSS\n\t 2 - For MASK_CROSS")
+            inp = self.__return_input(input())
             if inp == 0:
                 self.crossing = inp
                 print("You select ONE_POINT_CROSS crossing\n")
@@ -88,28 +107,44 @@ class Menu:
             else:
                 print("Wrong argument\n")
 
+    def __print_value_of_function(self, result):
+        if self.extremum:
+            print("The MAXIMUM value of function = ", str(result), "\n")
+        else:
+            print("The MINIMUM value of function = ", str(result), "\n")
+
+    def __choose_range(self):
+        while True:
+            print("Enter the number of iterations: ")
+            inp = input()
+            if inp.isdigit():
+                print("You enter ", inp, "iterations\n")
+                return int(inp)
+            else:
+                print("Wrong argument\n")
+
     def main(self):
         extremum_value = ExtremumValues()
         self.__choose_extremum()
         self.__choose_population()
         if self.population == 0:
-            generation = Blanket().generation
+            generation = eval(self.POPULATION[self.population])().generation
             print("Initial population: ", generation)
             result = extremum_value.value(generation, self.extremum)
-            print("The MINIMUM value of function = " + str(result))
+            self.__print_value_of_function(result)
             return None
         self.__choose_selection()
         self.__choose_crossing()
 
-        generation = Selective().generation
+        generation = eval(self.POPULATION[self.population])().generation
         print("Initial population: ", generation)
         result = extremum_value.value(generation, self.extremum)
-        print("The MINIMUM value of function = " + str(result))
+        self.__print_value_of_function(result)
 
-        for i in range(10):
-            new_generation = MaskCross(Tournament(self.extremum, generation).selection).new_generation
+        for i in range(self.__choose_range()):
+            new_generation = eval(self.CROSSING[self.crossing])(eval(self.SELECTION[self.selection])(self.extremum, generation).selection).new_generation
             print(new_generation)
 
             generation = new_generation
             result = extremum_value.value(generation, self.extremum)
-            print("The MINIMUM value of function = ", result, "\n")
+            self.__print_value_of_function(result)
