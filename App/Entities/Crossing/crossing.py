@@ -8,6 +8,53 @@ class Crossing:
         self.child1 = ""
         self.child2 = ""
 
+    def remove_binary_when_minus_minus(self, binary_population, i):
+        self.dad = binary_population[i][3:].zfill(6)
+        self.mom = binary_population[i + 1][3:].zfill(6)
+
+    def remove_binary_when_minus_plus(self, binary_population, i):
+        self.dad = binary_population[i][3:].zfill(6)
+        self.mom = binary_population[i + 1][2:].zfill(6)
+
+    def remove_binary_when_plus_minus(self, binary_population, i):
+        self.dad = binary_population[i][2:].zfill(6)
+        self.mom = binary_population[i + 1][3:].zfill(6)
+
+    def remove_binary_when_plus_plus(self, binary_population, i):
+        self.dad = binary_population[i][2:].zfill(6)
+        self.mom = binary_population[i + 1][2:].zfill(6)
+
+    def when_minus_minus(self):
+        self.dad = "-0b" + self.dad
+        self.mom = "-0b" + self.mom
+        self.child1 = "-0b" + self.child1
+        self.child2 = "-0b" + self.child2
+
+    def when_minus_plus(self):
+        self.dad = "-0b" + self.dad
+        self.mom = "0b" + self.mom
+        self.child1 = "0b" + self.child1
+        self.child2 = "-0b" + self.child2
+
+    def when_plus_minus(self):
+        self.dad = "0b" + self.dad
+        self.mom = "-0b" + self.mom
+        self.child1 = "-0b" + self.child1
+        self.child2 = "0b" + self.child2
+
+    def when_plus_plus(self):
+        self.dad = "0b" + self.dad
+        self.mom = "0b" + self.mom
+        self.child1 = "0b" + self.child1
+        self.child2 = "0b" + self.child2
+
+    def make_crossing(self, remove_binary, binary_population, i, cross, temporary_generation, init_child, add_binary):
+        remove_binary(binary_population, i)
+        init_child(cross)
+        self.mutate_person()
+        add_binary()
+        self.append_generation(temporary_generation)
+
     def append_generation(self, generation):
         generation.append(self.dad)
         generation.append(self.mom)

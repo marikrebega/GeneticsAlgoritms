@@ -34,46 +34,23 @@ class TwoPointCross(Crossing):
         for i in range(0, len(binary_population), 2):
             self.child1 = ""
             self.child2 = ""
+            init_child = self.__init_child
             if binary_population[i][0:1] == "-" and binary_population[i + 1][0:1] == "-":
-                self.dad = binary_population[i][3:].zfill(6)
-                self.mom = binary_population[i + 1][3:].zfill(6)
-                self.__init_child(crossing_points)
-                self.mutate_person()
-                self.dad = "-0b" + self.dad
-                self.mom = "-0b" + self.mom
-                self.child1 = "-0b" + self.child1
-                self.child2 = "-0b" + self.child2
-                self.append_generation(temporary_generation)
+                remove_binary = self.remove_binary_when_minus_minus
+                add_binary = self.when_minus_minus
+                self.make_crossing(remove_binary, binary_population, i, crossing_points, temporary_generation, init_child, add_binary)
             elif binary_population[i][0:1] == "-" and binary_population[i + 1][0:1] != "-":
-                self.dad = binary_population[i][3:].zfill(6)
-                self.mom = binary_population[i + 1][2:].zfill(6)
-                self.__init_child(crossing_points)
-                self.mutate_person()
-                self.dad = "-0b" + self.dad
-                self.mom = "0b" + self.mom
-                self.child1 = "0b" + self.child1
-                self.child2 = "-0b" + self.child2
-                self.append_generation(temporary_generation)
+                remove_binary = self.remove_binary_when_minus_plus
+                add_binary = self.when_minus_plus
+                self.make_crossing(remove_binary, binary_population, i, crossing_points, temporary_generation, init_child, add_binary)
             elif binary_population[i][0:1] != "-" and binary_population[i + 1][0:1] == "-":
-                self.dad = binary_population[i][2:].zfill(6)
-                self.mom = binary_population[i + 1][3:].zfill(6)
-                self.__init_child(crossing_points)
-                self.mutate_person()
-                self.dad = "0b" + self.dad
-                self.mom = "-0b" + self.mom
-                self.child1 = "-0b" + self.child1
-                self.child2 = "0b" + self.child2
-                self.append_generation(temporary_generation)
+                remove_binary = self.remove_binary_when_plus_minus
+                add_binary = self.when_plus_minus
+                self.make_crossing(remove_binary, binary_population, i, crossing_points, temporary_generation, init_child, add_binary)
             else:
-                self.dad = binary_population[i][2:].zfill(6)
-                self.mom = binary_population[i + 1][2:].zfill(6)
-                self.__init_child(crossing_points)
-                self.mutate_person()
-                self.dad = "0b" + self.dad
-                self.mom = "0b" + self.mom
-                self.child1 = "0b" + self.child1
-                self.child2 = "0b" + self.child2
-                self.append_generation(temporary_generation)
+                remove_binary = self.remove_binary_when_plus_plus
+                add_binary = self.when_plus_plus
+                self.make_crossing(remove_binary, binary_population, i, crossing_points, temporary_generation, init_child, add_binary)
         for i in range(len(temporary_generation)):
             new_generation.append(int(temporary_generation[i], 2))
         return new_generation
