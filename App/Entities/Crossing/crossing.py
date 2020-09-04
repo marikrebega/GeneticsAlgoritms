@@ -51,18 +51,18 @@ class Crossing:
     def make_crossing(self, remove_binary, binary_population, i, cross, temporary_generation, init_child, add_binary):
         remove_binary(binary_population, i)
         init_child(cross)
-        self.mutate_person()
+        self.__mutate_person()
         add_binary()
-        self.append_generation(temporary_generation)
+        self.__append_generation(temporary_generation)
 
-    def append_generation(self, generation):
+    def __append_generation(self, generation):
         generation.append(self.dad)
         generation.append(self.mom)
         generation.append(self.child1)
         generation.append(self.child2)
         print("mom: ", self.mom, "dad: ", self.dad, "\tchild1: ", self.child1, "child2: ", self.child2)
 
-    def mutate_person(self):
+    def __mutate_person(self):
         person = random.randrange(0, 4)
         if person == 0:
             self.dad = self.__mutate(self.dad)
